@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dotnet",
+			"task": "watch RestApiWebApplication",
+			"file": "C:\\Users\\AlfKS\\OneDrive\\Escritorio\\ProyectoMiHuerto\\tuhuerto\\tu-huerto\\RestApiWebApplication\\RestApiWebApplication.csproj",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"label": "dotnet: watch RestApiWebApplication"
+		}
+	]
+}

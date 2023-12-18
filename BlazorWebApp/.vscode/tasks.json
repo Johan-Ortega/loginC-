@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dotnet",
+			"task": "clean",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "clean",
+			"label": "dotnet: clean"
+		},
+		{
+			"type": "dotnet",
+			"task": "watch BlazorWebApp",
+			"file": "C:\\Users\\Angel\\GitHub\\tu-huerto\\BlazorWebApp\\BlazorWebApp.csproj",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"label": "dotnet: watch BlazorWebApp"
+		}
+	]
+}

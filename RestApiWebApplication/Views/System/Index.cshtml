@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenido @ViewData["nombreUsuario"]</h1>
+    <p>Es hora de comanzar</p>
+    <h3>Nombre: @ViewData["nombreUsuario"] @ViewData["apellidoUsuario"]</h3>
+    <h3>Correo: @ViewData["correoUsuario"]</h3>
+    <h3>Contraseña Hasheada: @ViewData["passwordUsuario"]</h3>
+    <h3>Ubicacion: @ViewData["ubicacionUsuario"]</h3>
+</div>
