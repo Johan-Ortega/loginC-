@@ -28,13 +28,43 @@ namespace RestApiWebApplication.Controllers
         {
             modelo.Password = Utilidades.EncriptarClave(modelo.Password);
 
+             Usuario usuarioExistente = await _usuarioServicio.GetUsuario(modelo.Correo, modelo.Password);
+
+            if (usuarioExistente != null)
+            {
+                ViewData["Mensaje"] = "Ya existe un usuario con este correo electrónico";
+                return View();
+            }
+
             Usuario usuario_creado = await _usuarioServicio.SaveUsuario(modelo);
 
-            if (usuario_creado.IdUsuario > 0)
-                return RedirectToAction("IniciarSesion", "Inicio");
+            if (usuario_creado.IdUsuario > 0){
+                // return RedirectToAction("IniciarSesion", "Inicio");
+                List<Claim> claims = new List<Claim>() {
+                    new Claim(ClaimTypes.Name, usuario_creado.NombreUsuario),
+                    new Claim("Apellido",usuario_creado.ApellidoUsuario),
+                    new Claim("Correo", usuario_creado.Correo),
+                    new Claim("Password", usuario_creado.Password),
+                    new Claim("Ubicacion", usuario_creado.Ubicacion)
+                };
 
-            ViewData["Mensaje"] = "No se pudo crear el usuario";
-            return View();
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                AuthenticationProperties properties = new AuthenticationProperties()
+                {
+                    AllowRefresh= true
+                };
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    properties
+                    );
+
+                return RedirectToAction("Index", "System");
+            }else{
+                ViewData["Mensaje"] = "No se pudo crear el usuario";
+                return View();
+            }
         }
 
         public IActionResult IniciarSesion()
